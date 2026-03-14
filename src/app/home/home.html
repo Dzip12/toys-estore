@@ -1,11 +1,15 @@
-<p>home works!</p>
+@if(toys().length > 0){
 <ul>
     @for(t of toys(); track $index){
-        <h3>{{t.name}}</h3>
-        <ul>
-            <li>ID: {{t.toyId}}</li>
-            <li>Description: {{t.description}}</li>
-            <li>Target group: {{t.targetGroup}}</li>
-        </ul>
+    <h3>{{t.name}}</h3>
+    <ul>
+        <li>ID: {{t.toyId}}</li>
+        <li>Description: {{t.description}}</li>
+        <li>Target group: {{t.targetGroup}}</li>
+        <li><a [routerLink]="`/details/${t.toyId}`">Details</a></li>
+    </ul>
     }
 </ul>
+} @else{
+<h3>Loading the page...</h3>
+}
