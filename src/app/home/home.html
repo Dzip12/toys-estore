@@ -1,0 +1,11 @@
+<p>home works!</p>
+<ul>
+    @for(t of toys(); track $index){
+        <h3>{{t.name}}</h3>
+        <ul>
+            <li>ID: {{t.toyId}}</li>
+            <li>Description: {{t.description}}</li>
+            <li>Target group: {{t.targetGroup}}</li>
+        </ul>
+    }
+</ul>
