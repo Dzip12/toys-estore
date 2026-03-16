@@ -1,5 +1,5 @@
 <h1>Home</h1>
-@if(toys().length == 0){
+@if(toys().length > 0){
 <div class="card-wrapper">
     @for(t of toys(); track $index){
     <mat-card class="toy-card" appearance="outlined">

@@ -1,11 +1,40 @@
 @if (toy()) {
-    <ul>
-        <li>Naziv: {{toy()?.name}}</li>
-        <li>Opis: {{toy()?.description}}</li>
-        <li>Tip: {{toy()?.type?.name}}</li>
-        <li>Uzrast: {{toy()?.ageGroup?.name}}</li>
-        <li>Ciljna grupa: {{toy()?.targetGroup}}</li>
-        <li>Datum proizvodnje: {{toy()?.productionDate}}</li>
-        <li>Cena: {{toy()?.price}} din</li>
-    </ul>
+<div class="details-wrapper">
+    <mat-card class="details-card">
+        <mat-card-content>
+            <img [src]="utils.getImageUrl(toy()!)" alt="Toy image">
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content class="details-card">
+            <h3>{{toy()?.name}}</h3>
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle>Opis</span>
+                    <span matListItemLine>{{toy()?.description}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Tip</span>
+                    <span matListItemLine>{{toy()?.type?.name}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Uzrast</span>
+                    <span matListItemLine>{{toy()?.ageGroup?.name}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Ciljana grupa</span>
+                    <span matListItemLine>{{toy()?.targetGroup}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Datum proizvodje</span>
+                    <span matListItemLine>{{toy()?.productionDate}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Cena</span>
+                    <span matListItemLine>{{toy()?.price}} din</span>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+</div>
 }
