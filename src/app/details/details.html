@@ -1,2 +1,11 @@
-<p>details works!</p>
-<p>ID: {{id()}}</p>
+@if (toy()) {
+    <ul>
+        <li>Naziv: {{toy()?.name}}</li>
+        <li>Opis: {{toy()?.description}}</li>
+        <li>Tip: {{toy()?.type?.name}}</li>
+        <li>Uzrast: {{toy()?.ageGroup?.name}}</li>
+        <li>Ciljna grupa: {{toy()?.targetGroup}}</li>
+        <li>Datum proizvodnje: {{toy()?.productionDate}}</li>
+        <li>Cena: {{toy()?.price}} din</li>
+    </ul>
+}

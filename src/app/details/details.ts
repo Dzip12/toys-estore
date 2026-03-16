@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToyModel } from '../../models/toy.model';
 
 @Component({
   selector: 'app-details',
@@ -8,9 +9,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './details.css',
 })
 export class Details {
-  id = signal(null)
+  toy = signal<ToyModel | null>(null)
 
   constructor(route: ActivatedRoute) {
-    route.params.subscribe(params => this.id.set(params['id']))
+    route.params.subscribe(params => {
+      const id = params['id'];
+      fetch(`https://toy.pequla.com/api/toy/${id}`)
+        .then(response => response.json())
+        .then(data => this.toy.set(data))
+    })
   }
 }
