@@ -1,3 +1,4 @@
+import { UrlSegment } from "@angular/router"
 import { UserModel } from "../../models/user.model"
 
 const USERS = 'users'
@@ -43,6 +44,21 @@ export class AuthService {
         }
 
         return null
+    }
+
+    static updateActiveUser(newUserData: UserModel){
+        const users = this.getUsers()
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                u.firstName = newUserData.firstName
+                u.lastName = newUserData.lastName
+                u.email = newUserData.email
+                u.address = newUserData.address
+                u.phone = newUserData.phone
+                u.favorites = newUserData.favorites
+            }
+        }
+        localStorage.setItem(USERS, JSON.stringify(users))
     }
 
     static logout() {

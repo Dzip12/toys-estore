@@ -14,7 +14,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Email</mat-label>
-                <input matInput type="email" [(ngModel)]="activateUser!.email">
+                <input matInput type="email" [(ngModel)]="activateUser!.email" disabled>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Address</mat-label>
@@ -25,14 +25,19 @@
                 <input matInput type="input" [(ngModel)]="activateUser!.phone">
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Favorite food</mat-label>
+                <mat-label>Favorite toy type</mat-label>
                 <mat-select [(ngModel)]="selectedType">
                     <mat-option value="" disabled>Select a type</mat-option>
                     @for (favorite of favoriteType(); track favorite) {
                     <mat-option [value]="favorite">{{favorite}}</mat-option>
-                    }
+                }
                 </mat-select>
             </mat-form-field>
+            <mat-card-actions>
+                <button type="button" matButton (click)="updateUser()">
+                    <mat-icon fontIcon="archive" /> Update
+                </button>
+            </mat-card-actions>
         </div>
     </mat-card-content>
 </mat-card>

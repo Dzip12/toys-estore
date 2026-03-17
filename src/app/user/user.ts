@@ -8,10 +8,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import axios from 'axios';
 import { ToyModel } from '../../models/toy.model';
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-user',
-  imports: [MatCardModule, MatInputModule, MatButtonModule, FormsModule, MatSelectModule],
+  imports: [MatCardModule, MatInputModule, MatButtonModule, FormsModule, MatSelectModule, MatIcon],
   templateUrl: './user.html',
   styleUrl: './user.css',
 })
@@ -27,6 +28,8 @@ export class User {
       return
     }
 
+    this.selectedType = this.activateUser!.favorites
+
     axios.get('https://toy.pequla.com/api/toy')
     .then(rsp => {
       const toys = rsp.data as ToyModel[]
@@ -36,5 +39,9 @@ export class User {
       this.favoriteType.set(types)
     })
     .catch(console.error)
+  }
+
+  updateUser(){
+    AuthService.updateActiveUser(this.activateUser!)
   }
 }
