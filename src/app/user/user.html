@@ -31,7 +31,7 @@
                     <mat-option value="" disabled>Select a type</mat-option>
                     @for (favorite of favoriteType(); track favorite) {
                     <mat-option [value]="favorite">{{favorite}}</mat-option>
-                }
+                    }
                 </mat-select>
             </mat-form-field>
             <mat-card-actions>
@@ -42,6 +42,33 @@
         </div>
     </mat-card-content>
 </mat-card>
+
+<mat-card>
+    <mat-card-header>
+        <h2>Password reset</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            <mat-form-field>
+                <mat-label>Old password</mat-label>
+                <input matInput type="password" [(ngModel)]="oldPassword">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>New password</mat-label>
+                <input matInput type="password" [(ngModel)]="newPassword">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Repeat password</mat-label>
+                <input matInput type="password" [(ngModel)]="passRepeat">
+            </mat-form-field>
+            <mat-card-actions>
+                <button type="button" matButton (click)="updatePassword()">
+                    <mat-icon fontIcon="key" /> Update password
+                </button>
+            </mat-card-actions>
+        </div>
+    </mat-card-content>
+</mat-card>
 } @else {
-    <app-loading />
+<app-loading />
 }

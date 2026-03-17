@@ -10,6 +10,8 @@ import axios from 'axios';
 import { ToyModel } from '../../models/toy.model';
 import { MatIcon } from "@angular/material/icon";
 import { Loading } from '../loading/loading';
+import Swal from 'sweetalert2'
+import { Alerts } from '../alerts';
 
 @Component({
   selector: 'app-user',
@@ -22,6 +24,9 @@ export class User {
 
   favoriteType = signal<string[]>([])
   selectedType = ''
+  oldPassword = ''
+  newPassword = ''
+  passRepeat = ''
 
   constructor(private router: Router) {
     if (!AuthService.getActiveUser()) {
@@ -43,6 +48,30 @@ export class User {
   }
 
   updateUser(){
+    this.activateUser!.favorites = this.selectedType
     AuthService.updateActiveUser(this.activateUser!)
+    Alerts.success('User updated')
+  }
+
+  updatePassword(){
+    if(this.oldPassword != this.activateUser?.password){
+      Alerts.error('Old password is incorrect')
+      return
+    }
+
+    if(this.newPassword != this.passRepeat){
+      Alerts.error('New passwords do not match')
+      return
+    }
+
+    if(this.newPassword == this.activateUser?.password){
+      Alerts.error('New password cannot be the same as the old one')
+      return
+    }
+
+    AuthService.updateActiveUserPassword(this.newPassword)
+    Alerts.success('Password updated')
+    AuthService.logout()
+    this.router.navigate(['/login'])
   }
 }
