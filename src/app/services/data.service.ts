@@ -18,17 +18,4 @@ export class DataService {
             }
         ]
     }
-
-    static getSize() {
-        return [
-            {
-                id: '1',
-                name: 'Small'
-            },
-            {
-                id: '2',
-                name: 'Large'
-            }
-        ]
-    }
 }

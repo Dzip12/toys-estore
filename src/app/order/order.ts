@@ -28,7 +28,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class Order {
   toy = signal<ToyModel | null>(null)
   toyStores = DataService.getToyStores()
-  size = DataService.getSize()
 
   order: Partial<OrderModel> = {
     storeId: this.toyStores[0].id,
