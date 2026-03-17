@@ -5,7 +5,7 @@ export interface UserModel {
     email: string,
     password: string,
     phone: string,
-    adress: string,
+    address: string,
     orders: any[],
     favorites: string
 }

@@ -13,6 +13,11 @@
             <a [routerLink]="`/details/${t.toyId}`" mat-button>
                 <mat-icon fontIcon="description" />Details
             </a>
+            @if (service.getActiveUser()) {
+                <a [routerLink]="`/details/${t.toyId}/reserve`" matButton>
+                    <mat-icon fontIcon="add_shopping_cart" />Reserve
+                </a>
+            }
         </mat-card-actions>
     </mat-card>
     }

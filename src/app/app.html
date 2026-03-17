@@ -11,7 +11,7 @@
         <mat-icon fontIcon="info" />About
     </a>
 
-    @if(activeUser){
+    @if(service.getActiveUser()){
         <a routerLink="/user" matButton>
             Account
         </a>
