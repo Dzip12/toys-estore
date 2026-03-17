@@ -34,8 +34,9 @@ export class User {
       return
     }
 
+    
     this.selectedType = this.activateUser!.favorites
-
+    
     axios.get('https://toy.pequla.com/api/toy')
     .then(rsp => {
       const toys = rsp.data as ToyModel[]
@@ -46,32 +47,40 @@ export class User {
     })
     .catch(console.error)
   }
-
-  updateUser(){
-    this.activateUser!.favorites = this.selectedType
-    AuthService.updateActiveUser(this.activateUser!)
-    Alerts.success('User updated')
+  
+  getAvatarUrl(){
+    return `https://ui-avatars.com/api/?name=${this.activateUser?.firstName}+${this.activateUser?.lastName}`
+  }
+  
+  updateUser() {
+    Alerts.confirm('Are you sure you want to update your profile?', () => {
+      this.activateUser!.favorites = this.selectedType
+      AuthService.updateActiveUser(this.activateUser!)
+      Alerts.success('User updated')
+    })
   }
 
-  updatePassword(){
-    if(this.oldPassword != this.activateUser?.password){
-      Alerts.error('Old password is incorrect')
-      return
-    }
+  updatePassword() {
+    Alerts.confirm('Are you sure you want to update your password?', () => {
+      if (this.oldPassword != this.activateUser?.password) {
+        Alerts.error('Old password is incorrect')
+        return
+      }
 
-    if(this.newPassword != this.passRepeat){
-      Alerts.error('New passwords do not match')
-      return
-    }
+      if (this.newPassword != this.passRepeat) {
+        Alerts.error('New passwords do not match')
+        return
+      }
 
-    if(this.newPassword == this.activateUser?.password){
-      Alerts.error('New password cannot be the same as the old one')
-      return
-    }
+      if (this.newPassword == this.activateUser?.password) {
+        Alerts.error('New password cannot be the same as the old one')
+        return
+      }
 
-    AuthService.updateActiveUserPassword(this.newPassword)
-    Alerts.success('Password updated')
-    AuthService.logout()
-    this.router.navigate(['/login'])
+      AuthService.updateActiveUserPassword(this.newPassword)
+      Alerts.success('Password updated')
+      AuthService.logout()
+      this.router.navigate(['/login'])
+    })
   }
 }
