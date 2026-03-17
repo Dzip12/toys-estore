@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -12,10 +12,11 @@ import { MatIcon } from "@angular/material/icon";
 import { Loading } from '../loading/loading';
 import Swal from 'sweetalert2'
 import { Alerts } from '../alerts';
+import { ToyService } from '../services/toy.service';
 
 @Component({
   selector: 'app-user',
-  imports: [MatCardModule, MatInputModule, MatButtonModule, FormsModule, MatSelectModule, MatIcon, Loading],
+  imports: [MatCardModule, MatInputModule, MatButtonModule, FormsModule, MatSelectModule, MatIcon, Loading, RouterLink, RouterLink],
   templateUrl: './user.html',
   styleUrl: './user.css',
 })
@@ -27,6 +28,7 @@ export class User {
   oldPassword = ''
   newPassword = ''
   passRepeat = ''
+  recommended = signal<ToyModel[]>([])
 
   constructor(private router: Router) {
     if (!AuthService.getActiveUser()) {
@@ -46,8 +48,19 @@ export class User {
       this.favoriteType.set(types)
     })
     .catch(console.error)
+
+    this.refreshRecommended(this.selectedType)
   }
-  
+
+  refreshRecommended(type: string) {
+    ToyService.getToysByType(type)
+      .then(rsp => {
+        const toys = Array.isArray(rsp.data) ? rsp.data : []
+        this.recommended.set(toys.filter(t => t.type?.name === type))
+      })
+      .catch(console.error)
+  }
+
   getAvatarUrl(){
     return `https://ui-avatars.com/api/?name=${this.activateUser?.firstName}+${this.activateUser?.lastName}`
   }
@@ -57,6 +70,8 @@ export class User {
       this.activateUser!.favorites = this.selectedType
       AuthService.updateActiveUser(this.activateUser!)
       Alerts.success('User updated')
+
+      this.refreshRecommended(this.selectedType)
     })
   }
 

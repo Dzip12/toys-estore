@@ -14,10 +14,10 @@
                     <mat-label>Last name</mat-label>
                     <input matInput type="text" [(ngModel)]="activateUser!.lastName">
                 </mat-form-field>
-                <mat-form-field class="full-width">
+                <!--<mat-form-field class="full-width">
                     <mat-label>Email</mat-label>
                     <input matInput type="text" [(ngModel)]="activateUser!.email" disabled>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field class="full-width">
                     <mat-label>Address</mat-label>
                     <input matInput type="text" [(ngModel)]="activateUser!.address">
@@ -28,7 +28,7 @@
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <mat-label>Favorite toy type</mat-label>
-                    <mat-select [(ngModel)]="selectedType">
+                    <mat-select [(ngModel)]="selectedType" (ngModelChange)="refreshRecommended($event)">
                         <mat-option value="" disabled>Select a type</mat-option>
                         @for (favorite of favoriteType(); track favorite) {
                         <mat-option [value]="favorite">{{favorite}}</mat-option>
@@ -83,6 +83,19 @@
             </mat-card-content>
         </mat-card>
     </div>
+    <mat-card class="user-card">
+        <mat-card-header>
+            <h2>Recommended toys</h2>
+        </mat-card-header>
+        <mat-card-content>
+            <ul>
+                @for (toy of recommended(); track toy.toyId) {
+                <li>{{toy.name}} - {{toy.type.name}}</li>
+                <a [routerLink]="`/details/${toy.toyId}`" matButton>Details</a>
+                }
+            </ul>
+        </mat-card-content>
+    </mat-card>
 </div>
 } @else {
 <app-loading />

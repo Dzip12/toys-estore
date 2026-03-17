@@ -22,4 +22,8 @@
 
 .user-img {
     border-radius: 16px;
-}   
+}
+
+ul{
+    list-style-type: none;
+}

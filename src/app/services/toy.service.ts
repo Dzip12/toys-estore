@@ -22,6 +22,6 @@ export class ToyService {
     }
 
     static async getToysByType(type: string) {
-        return await client.get<string[]>(`/toy/type/${name}`)
+        return await client.get<ToyModel[]>(`/?type=${encodeURIComponent(type)}`)
     }
 }
