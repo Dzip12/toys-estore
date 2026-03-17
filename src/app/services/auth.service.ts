@@ -1,5 +1,7 @@
 import { UrlSegment } from "@angular/router"
 import { UserModel } from "../../models/user.model"
+import { OrderModel } from "../../models/order.model"
+import { Order } from "../order/order"
 
 const USERS = 'users'
 const ACTIVE = 'active'
@@ -73,5 +75,18 @@ export class AuthService {
 
     static logout() {
         localStorage.removeItem(ACTIVE)
+    }
+
+    static createOrder(order: Partial<OrderModel>, toyId: number){
+        order.toyId = toyId
+        order.createdAt = new Date().toISOString()
+
+        const users = this.getUsers()
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                u.orders.push(order as OrderModel)
+            }
+        }
+        localStorage.setItem(USERS, JSON.stringify(users))
     }
 }

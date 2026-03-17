@@ -4,6 +4,21 @@
     width: 100%;
 }
 
+.small-card {
+    max-width: 400px;
+}
+
+.flex-card {
+    width: 460px;
+}
+
+.flex-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
 .mat-swal-popup {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     border-radius: 16px;

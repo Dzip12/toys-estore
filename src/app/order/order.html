@@ -1,18 +1,10 @@
-@if (toy()) {
-<div class="details-wrapper">
-    <mat-card class="details-card">
-        <mat-card-content>
-            <img [src]="utils.getImageUrl(toy()!)" alt="Toy image">
-        </mat-card-content>
-    </mat-card>
-    <mat-card>
+@if(toy() != null){
+<div class="flex-wrapper">
+    <mat-card class="flex-card order-card" appearance="outlined">
+        <img [src]="utils.getImageUrl(toy()!)" alt="Toy">
         <mat-card-content class="details-card">
             <h3>{{toy()?.name}}</h3>
             <mat-list>
-                <mat-list-item>
-                    <span matListItemTitle>Opis</span>
-                    <span matListItemLine>{{toy()?.description}}</span>
-                </mat-list-item>
                 <mat-list-item>
                     <span matListItemTitle>Tip</span>
                     <span matListItemLine>{{toy()?.type?.name}}</span>
@@ -34,14 +26,29 @@
                     <span matListItemLine>{{toy()?.price}} din</span>
                 </mat-list-item>
             </mat-list>
-            @if (service.getActiveUser()) {
-                <a [routerLink]="`/details/${toy()?.toyId}/order`" matButton>
-                    <mat-icon fontIcon="add_shopping_cart" />Reserve
-                </a>
-            }
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="flex-card" appearance="outlined">
+        <mat-card-content>
+            <mat-form-field class="full-width">
+                <mat-label>Toy Store</mat-label>
+                <mat-select [(ngModel)]="order.storeId">
+                    @for (toyStore of toyStores; track $index) {
+                    <mat-option [value]="toyStore.id">{{toyStore.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <mat-label>Count</mat-label>
+                <input matInput type="number" [(ngModel)]="order.count">
+            </mat-form-field>
+            <h3>Total: {{calculateTotal()}} din</h3>
+            <button matButton type="button" (click)="placeOrder()">Place Order</button>
         </mat-card-content>
     </mat-card>
 </div>
+
 } @else {
-    <app-loading />
+<app-loading />
 }

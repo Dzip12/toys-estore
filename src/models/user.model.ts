@@ -1,3 +1,4 @@
+import { OrderModel } from "./order.model";
 
 export interface UserModel {
     firstName: string,
@@ -6,6 +7,6 @@ export interface UserModel {
     password: string,
     phone: string,
     address: string,
-    orders: any[],
+    orders: OrderModel[],
     favorites: string
 }

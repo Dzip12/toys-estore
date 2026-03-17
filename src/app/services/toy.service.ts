@@ -18,7 +18,7 @@ export class ToyService {
     }
 
     static async getToyById(id: number) {
-        return await client.get<ToyModel>('/toy/' + id)
+        return await client.get<ToyModel>('/' + id)
     }
 
     static async getToysByType(type: string) {
