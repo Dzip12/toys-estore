@@ -10,12 +10,25 @@
     <a routerLink="/about" matButton>
         <mat-icon fontIcon="info" />About
     </a>
+
+    @if(activeUser){
+        <a routerLink="/user" matButton>
+            Account
+        </a>
+        <button matButton (click)="doLogout()">Logout</button>
+    } @else{
+        <a routerLink="/login" matButton>
+            Login
+        </a>
+    }
+
+    <!-- <mat-menu #afterMenu="matMenu" xPosition="after">
     <button matButton [matMenuTriggerFor]="afterMenu">
         <mat-icon fontIcon="account_circle" />Korisnik</button>
-    <mat-menu #afterMenu="matMenu" xPosition="after">
         <button mat-menu-item>Item 1</button>
         <button mat-menu-item>Item 2</button>
-    </mat-menu>
+    </mat-menu> -->
+
 </mat-toolbar>
 
 <div class="wrapper">
