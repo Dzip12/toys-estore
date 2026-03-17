@@ -7,10 +7,11 @@ import { MatListModule } from '@angular/material/list';
 import { AuthService } from '../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Loading } from '../loading/loading';
 
 @Component({
   selector: 'app-details',
-  imports: [MatCardModule, MatListModule, RouterLink, MatIconModule, MatButtonModule],
+  imports: [MatCardModule, MatListModule, RouterLink, MatIconModule, MatButtonModule, Loading],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })

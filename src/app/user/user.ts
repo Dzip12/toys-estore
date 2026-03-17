@@ -9,10 +9,11 @@ import { MatSelectModule } from '@angular/material/select';
 import axios from 'axios';
 import { ToyModel } from '../../models/toy.model';
 import { MatIcon } from "@angular/material/icon";
+import { Loading } from '../loading/loading';
 
 @Component({
   selector: 'app-user',
-  imports: [MatCardModule, MatInputModule, MatButtonModule, FormsModule, MatSelectModule, MatIcon],
+  imports: [MatCardModule, MatInputModule, MatButtonModule, FormsModule, MatSelectModule, MatIcon, Loading],
   templateUrl: './user.html',
   styleUrl: './user.css',
 })

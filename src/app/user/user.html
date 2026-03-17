@@ -1,3 +1,4 @@
+@if(favoriteType().length > 0){
 <mat-card>
     <mat-card-header>
         <h2>User Profile</h2>
@@ -41,3 +42,6 @@
         </div>
     </mat-card-content>
 </mat-card>
+} @else {
+    <app-loading />
+}
