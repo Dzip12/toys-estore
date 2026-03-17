@@ -2,6 +2,7 @@ import { UrlSegment } from "@angular/router"
 import { UserModel } from "../../models/user.model"
 import { OrderModel } from "../../models/order.model"
 import { Order } from "../order/order"
+import { ToyModel } from "../../models/toy.model"
 
 const USERS = 'users'
 const ACTIVE = 'active'
@@ -77,8 +78,10 @@ export class AuthService {
         localStorage.removeItem(ACTIVE)
     }
 
-    static createOrder(order: Partial<OrderModel>, toyId: number){
-        order.toyId = toyId
+    static createOrder(order: Partial<OrderModel>, toy: ToyModel) {
+        order.state = 'w'
+        order.toyId = toy.toyId
+        order.name = toy.name
         order.createdAt = new Date().toISOString()
 
         const users = this.getUsers()
@@ -88,5 +91,15 @@ export class AuthService {
             }
         }
         localStorage.setItem(USERS, JSON.stringify(users))
+    }
+
+    static getOrdersOnWaiting() {
+        const users = this.getUsers()
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                return u.orders
+            }
+        }
+        return []
     }
 }

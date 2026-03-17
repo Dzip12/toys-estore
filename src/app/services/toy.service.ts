@@ -24,4 +24,12 @@ export class ToyService {
     static async getToysByType(type: string) {
         return await client.get<ToyModel[]>(`/?type=${encodeURIComponent(type)}`)
     }
+
+    static async getToysByIds(ids: number){
+        return await client.request({
+            url: '/toy/list',
+            method: 'post',
+            data: ids
+        })
+    }
 }

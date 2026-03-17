@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-order',
-  imports: [MatCardModule, RouterLink, FormsModule, MatButtonModule, MatFormFieldModule,
+  imports: [MatCardModule, FormsModule, MatButtonModule, MatFormFieldModule,
   MatInputModule, Loading, MatListModule, MatSelectModule, MatIconModule],
   templateUrl: './order.html',
   styleUrl: './order.css',
@@ -59,7 +59,7 @@ export class Order {
 
   placeOrder(){
     Alerts.confirm(`Are you sure you want to place order for ${this.calculateTotal()}?`, ()=>{
-      AuthService.createOrder(this.order, this.toy()!.toyId)
+      AuthService.createOrder(this.order, this.toy()!)
       this.router.navigate(['/cart'])
     })
   }

@@ -1,1 +1,7 @@
-<p>cart works!</p>
+@for(order of getOrders(); track $index){
+    <mat-card>
+        <mat-card-content>
+            {{order.name}}
+        </mat-card-content>
+    </mat-card>
+}
