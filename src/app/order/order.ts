@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { ToyModel } from '../../models/toy.model';
 import { identity } from 'rxjs';
 import { DataService } from '../services/data.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToyService } from '../services/toy.service';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
@@ -15,10 +15,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { OrderModel } from '../../models/order.model';
 import { AuthService } from '../services/auth.service';
+import { Alerts } from '../alerts';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-order',
-  imports: [MatCardModule, RouterLink, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, Loading, MatListModule, MatSelectModule],
+  imports: [MatCardModule, RouterLink, FormsModule, MatButtonModule, MatFormFieldModule,
+  MatInputModule, Loading, MatListModule, MatSelectModule, MatIconModule],
   templateUrl: './order.html',
   styleUrl: './order.css',
 })
@@ -32,7 +35,7 @@ export class Order {
     count: 1
   }
 
-  constructor(private route: ActivatedRoute, public utils: Utils){
+  constructor(public router: Router, private route: ActivatedRoute, public utils: Utils){
     this.route.params.subscribe(params =>{
       const id = Number(params['id'])
       ToyService.getToyById(id)
@@ -55,6 +58,9 @@ export class Order {
   }
 
   placeOrder(){
-    AuthService.createOrder(this.order, this.toy()!.toyId)
+    Alerts.confirm(`Are you sure you want to place order for ${this.calculateTotal()}?`, ()=>{
+      AuthService.createOrder(this.order, this.toy()!.toyId)
+      this.router.navigate(['/cart'])
+    })
   }
 }
