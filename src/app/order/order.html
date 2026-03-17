@@ -41,7 +41,7 @@
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Count</mat-label>
-                <input matInput type="number" [(ngModel)]="order.count">
+                <input matInput type="number" min="1" [(ngModel)]="order.count">
             </mat-form-field>
             <h3>Total: {{calculateTotal()}} din</h3>
         </mat-card-content>

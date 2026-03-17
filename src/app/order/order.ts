@@ -48,7 +48,11 @@ export class Order {
     const toy = this.toy()
     if (!toy) return 0
 
-    const count = Number(this.order.count) || 0
+    let count = Number(this.order.count) || 0
+    if (count < 1) {
+      count = 1
+      this.order.count = 1
+    }
     const store = this.toyStores.find(s => s.id === this.order.storeId)
     const priceImpact = store?.priceImpact ?? 1
 

@@ -1,7 +1,59 @@
 <h1>Home</h1>
+
+<mat-card class="mb-3">
+    <mat-card-header>
+        <h2>Pretraga igračaka</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="search-grid">
+            <mat-form-field appearance="outline">
+                <mat-label>Naziv</mat-label>
+                <input matInput type="text" [(ngModel)]="searchName">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Opis</mat-label>
+                <input matInput type="text" [(ngModel)]="searchDescription">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Tip (npr. Slagalica)</mat-label>
+                <input matInput type="text" [(ngModel)]="searchType">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Uzrast (npr. 3-5)</mat-label>
+                <input matInput type="text" [(ngModel)]="searchAgeGroup">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Ciljna grupa</mat-label>
+                <mat-select [(ngModel)]="searchTargetGroup">
+                    <mat-option [value]="''">Sve</mat-option>
+                    <mat-option value="dečak">Dečak</mat-option>
+                    <mat-option value="devojčica">Devojčica</mat-option>
+                    <mat-option value="svi">Svi</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Datum proizvodnje (npr. 2024)</mat-label>
+                <input matInput type="text" [(ngModel)]="searchProductionDate">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Min cena</mat-label>
+                <input matInput type="number" [(ngModel)]="minPrice">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Max cena</mat-label>
+                <input matInput type="number" [(ngModel)]="maxPrice">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Minimalna ocena (1-5)</mat-label>
+                <input matInput type="number" min="1" max="5" [(ngModel)]="minRating">
+            </mat-form-field>
+        </div>
+    </mat-card-content>
+</mat-card>
+
 @if(toys().length > 0){
 <div class="card-wrapper">
-    @for(t of toys(); track $index){
+    @for(t of getFilteredToys(); track $index){
     <mat-card class="toy-card" appearance="outlined">
         <img mat-card-image [src]="utils.getImageUrl(t)" [alt]="t.name">
         <mat-card-content>

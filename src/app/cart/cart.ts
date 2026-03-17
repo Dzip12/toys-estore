@@ -19,7 +19,7 @@ import { Alerts } from '../alerts';
 })
 export class Cart {
   toyStores = DataService.getToyStores()
-  displayedColumns = ['name', 'toyStore', 'count', 'createdAt', 'remove']
+  displayedColumns = ['name', 'toyStore', 'count', 'createdAt', 'arrived', 'remove']
   total = signal<number>(0)
 
   constructor(public router: Router, public utils: Utils) {
@@ -55,6 +55,13 @@ export class Cart {
     })
   }
 
+  markArrived(order: OrderModel) {
+    Alerts.confirm('Has this order arrived?', () => {
+      AuthService.markOrderArrived(order.createdAt)
+      this.loadTotal()
+    })
+  }
+
   payAll() {
     Alerts.confirm('Are you sure you want to pay?', () => {
       AuthService.payOrders()
@@ -75,6 +82,10 @@ export class Cart {
 
   getCanceledOrders() {
     return AuthService.getOrdersByState('c')
+  }
+
+  getArrivedOrders() {
+    return AuthService.getOrdersByState('p')
   }
 
   getStoreName(storeId: number) {

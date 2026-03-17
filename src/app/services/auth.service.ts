@@ -8,6 +8,9 @@ const USERS = 'users'
 const ACTIVE = 'active'
 
 export class AuthService {
+    static setUsers(users: UserModel[]) {
+        localStorage.setItem(USERS, JSON.stringify(users))
+    }
     static getUsers(): UserModel[] {
         const baseUser: UserModel = {
             email: 'user@gmail.com',
@@ -87,6 +90,9 @@ export class AuthService {
         const users = this.getUsers()
         for (let u of users) {
             if (u.email === localStorage.getItem(ACTIVE)) {
+                if (!u.orders) {
+                    u.orders = []
+                }
                 u.orders.push(order as OrderModel)
             }
         }
@@ -118,8 +124,22 @@ export class AuthService {
         for (let u of users) {
             if (u.email === localStorage.getItem(ACTIVE)) {
                 for (let o of u.orders) {
-                    if (o.state === 'w' && o.createdAt === createdAt) {
+                    if ((o.state === 'w' || o.state === 'p') && o.createdAt === createdAt) {
                         o.state = 'c';
+                    }
+                }
+            }
+        }
+        localStorage.setItem(USERS, JSON.stringify(users));
+    }
+
+    static markOrderArrived(createdAt: string) {
+        const users = this.getUsers();
+        for (let u of users) {
+            if (u.email === localStorage.getItem(ACTIVE)) {
+                for (let o of u.orders) {
+                    if (o.state === 'w' && o.createdAt === createdAt) {
+                        o.state = 'p';
                     }
                 }
             }
