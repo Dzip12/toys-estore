@@ -1,7 +1,7 @@
 export interface ReviewModel {
     toyId: number;
     userEmail: string;
-    rating: number; // 1-5
+    rating: number;
     comment?: string;
     createdAt: string;
 }
